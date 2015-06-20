@@ -1,0 +1,32 @@
+{
+  "name": "gulp-display-help",
+  "version": "0.0.1",
+  "description": " Output beautiful custom help text for your gulp tasks and parameters ",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andfaulkner/gulp-display-help.git"
+  },
+  "keywords": [
+    "gulp",
+    "help",
+    "manual",
+    "man",
+    "console",
+    "log",
+    "helpfile",
+    "faq",
+    "gulpfile",
+    "summary",
+    "description"
+  ],
+  "author": "Andrew Faulkner",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/andfaulkner/gulp-display-help/issues"
+  },
+  "homepage": "https://github.com/andfaulkner/gulp-display-help#readme"
+}
