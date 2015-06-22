@@ -9,7 +9,7 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 	//private functions - local
 	var __displayUsage, 
 		__isFlagDescriptionObj, 
-		__displayTaskWithDescription,
+		__displayDefWithDescription,
 		__displayMultilineTaskList,
 		__displayNoDescriptionTask,
 		__displayFlagDescriptions;
@@ -30,6 +30,20 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 
 	/**
 	 * @private
+	 * Remove tasks on the 'exclude' list from the 'tasks' object, preventing
+	 * them from being displayed in the outputted help file.
+	 */
+	__rmPrivate = function(excludes, tasks) {
+		excludes.forEach(function(item, index){
+			if (tasks.hasOwnProperty(item)){
+				delete tasks[item];
+			}
+		});
+		return tasks;
+	}
+
+	/**
+	 * @private
 	 * Check if the flagDescriptions parameter is valid
 	 */
 	__isFlagDescriptionObj = function(item){
@@ -39,10 +53,11 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 	    	(!(Object.keys(item).length <= 0)) &&
 	    	typeof item === 'object')
 	    {
-	    	return (Object.keys(item)).every(function(key, index){
 
-	            if (typeof key !== 'string' || typeof item[key] !== 'string'){
-	                return false;
+	    	return (Object.keys(item)).every(function(key, index){
+	            if (typeof key !== 'string' || 
+	            	typeof item[key] !== 'string'){
+	                	return false;
 	            }
 	            return true;
 	        });
@@ -83,40 +98,17 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 
 	/**
 	 * @private
-	 * List of flags (e.g. --production) & descriptions of each
-	 * 
-	 * @param flagDescriptions {Object}
-	 * @param indentString {Object}
-	 * @param indent {Object}
-	 */
-	__displayFlagDescriptions = function(flagDescriptions, indentString, indent){
-		if (__isFlagDescriptionObj(flagDescriptions)){
-			console.log('\n' + chalk.bold.green('Flags:') + '\n');
-
-			Object.keys(flagDescriptions).forEach(function (flag) {
-				var wrappedDescription, prettyTaskNameFlag;
-				wrappedDescription = wordWrap(flagDescriptions[flag], wrapSettings);
-				prettyTaskNameFlag = chalk.bold((flag + indentString).substr(0, indent));
-				console.log(prettyTaskNameFlag + ' - ' + wrappedDescription + '\n');
-			});
-		}
-		return true;
-	}
-
-
-	/**
-	 * @private
 	 * Handle display of tasks with descriptions spanning multiple lines
 	 */
-	__displayTaskWithDescription = function(task, prettyTaskName){
+	__displayDefWithDescription = function(item, prettyDefName, defs){
 		var defStr, firstLn, rest;
 
-		defStr = descriptions[task];
+		defStr = defs[item];
 		firstLn = (defStr.slice(0, wrapSettings.width));
 		rest = (defStr.slice(wrapSettings.width, defStr.length));
 			
-		console.log(prettyTaskName + ' - ' + firstLn);
-		console.log(wordWrap(rest, wrapSettings));
+		console.log(prettyDefName + ' - ' + firstLn);
+		console.log(wordWrap(rest, {indent: wrapSettings.indent + "   ", width: wrapSettings.width}));
 				
 //		//Indent and display a dash if this is a taskrunner
 //		if (dep.length) {
@@ -172,6 +164,33 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 	}
 
 
+	/**
+	 * @private
+	 * List of flags (e.g. --production) & descriptions of each
+	 * 
+	 * @param flagDescriptions {Object}
+	 * @param indentString {Object}
+	 * @param indent {Object}
+	 */
+	__displayFlagDescriptions = function(flagDescriptions, indentString, indent){
+
+		if (__isFlagDescriptionObj(flagDescriptions)){
+			console.log('\n' + chalk.bold.green('Flags:') + '\n');
+
+			Object.keys(flagDescriptions).forEach(function (flag) {
+				var prettyFlagName = chalk.bold((flag + indentString).substr(0, indent));
+				__displayDefWithDescription(flag, prettyFlagName, flagDescriptions);
+//				var wrappedDescription;
+//				wrappedDescription = wordWrap(flagDescriptions[flag],
+//											  wrapSettings);
+				//actual output of flags and descriptions
+//				console.log(prettyFlagName + ' - ' + wrappedDescription + '\n');
+			});
+		}
+		return true;
+	}
+
+
 
 
 /**
@@ -182,7 +201,10 @@ return function () {
 	var task, indent, indentString;
 
 	descriptions = descriptions || {},
+	taskList = __rmPrivate(excludes, taskList);
+
 	tasks = Object.keys(taskList);
+	
 
 	__displayUsage(taskList);
 
@@ -195,13 +217,14 @@ return function () {
 	}, 0);
 
 	indentString = (new Array(indent+1)).join(' ');
+	wrapSettings.indent = indentString;
 
 	//Display the taskname and its description
 	Object.keys(taskList).forEach(function (task) {
 		var prettyTaskName, dep, depStr;
 
 		//Formatting for the task's help text
-		prettyTaskName = chalk.bold((task + indentString).substr(0,indent));
+		prettyTaskName = chalk.bold((task + wrapSettings.indent).substr(0, indent));
 		dep = taskList[task].dep;
 
 //		for (var i = 0; i < dep.length; i++) { //dep[i] = chalk.bold(dep[i]); }
@@ -209,7 +232,7 @@ return function () {
 		depStr = 'Runs ' + dep.join(', ');
 
 		//tasks with descriptions: Output of name & task description to log
-		if (task in descriptions) __displayTaskWithDescription(task, prettyTaskName);
+		if (task in descriptions) __displayDefWithDescription (task, prettyTaskName, descriptions);
 
 		//tasks with no descriptions
 		else __displayNoDescriptionTask(prettyTaskName, dep, depStr);
