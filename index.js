@@ -1,7 +1,8 @@
+"use strict";
+
 var chalk = require('chalk');
 var wordWrap = require('word-wrap');
 var gulp = require('gulp');
-
 
 
 module.exports = function (taskList, descriptions, flagDescriptions, excludes, styles) {
@@ -12,7 +13,8 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 		__displayDefWithDescription,
 		__displayMultilineTaskList,
 		__displayNoDescriptionTask,
-		__displayFlagDescriptions;
+		__displayFlagDescriptions,
+		__rmPrivate;
 	
 
 	//wordWrap settings
@@ -198,24 +200,30 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
  * exported gulp help object
  */
 return function () {
-	var task, indent, indentString;
+	var tasks, indent, indentString, flags,
+		allNames = [];
 
 	descriptions = descriptions || {},
 	taskList = __rmPrivate(excludes, taskList);
-
 	tasks = Object.keys(taskList);
-	
+	flags = Object.keys(flagDescriptions);
 
 	__displayUsage(taskList);
 
 	//Show registered tasks title:
 	console.log('\n' + chalk.bold.yellow('Registered tasks:') + '\n');
+	
+	tasks.forEach(function(item, index){
+		allNames.push(item);
+	});
+	flags.forEach(function(item, index){
+		allNames.push(item);
+	});
 
-	//Determine length of indent
-	indent = tasks.reduce(function (winner, current) {
+	//Determine length of indent & set up an indent string
+	indent = allNames.reduce(function (winner, current) {
 		return Math.max(current.length, winner);
 	}, 0);
-
 	indentString = (new Array(indent+1)).join(' ');
 	wrapSettings.indent = indentString;
 
@@ -226,8 +234,6 @@ return function () {
 		//Formatting for the task's help text
 		prettyTaskName = chalk.bold((task + wrapSettings.indent).substr(0, indent));
 		dep = taskList[task].dep;
-
-//		for (var i = 0; i < dep.length; i++) { //dep[i] = chalk.bold(dep[i]); }
 
 		depStr = 'Runs ' + dep.join(', ');
 
