@@ -31,6 +31,7 @@
   "homepage": "https://github.com/andfaulkner/gulp-display-help#readme",
   "dependencies": {
     "chalk": "^0.4.0",
+    "gulp": "^3.9.0",
     "word-wrap": "^1.0.3"
   },
   "devDependencies": {
