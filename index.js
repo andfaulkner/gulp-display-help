@@ -5,11 +5,11 @@ var wordWrap = require('word-wrap');
 var gulp = require('gulp');
 
 
-module.exports = function (taskList, descriptions, flagDescriptions, excludes, styles) {
+module.exports = function (taskList, descriptions, excludes, flagDescriptions, styles) {
 
 	//private functions - local
 	var __displayUsage, 
-		__isFlagDescriptionObj, 
+		__isDefObj, 
 		__displayDefWithDescription,
 		__displayMultilineTaskList,
 		__displayNoDescriptionTask,
@@ -46,9 +46,9 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 
 	/**
 	 * @private
-	 * Check if the flagDescriptions parameter is valid
+	 * Check if an object passed to this module is valid
 	 */
-	__isFlagDescriptionObj = function(item){
+	__isDefObj = function(item){
 	    if (typeof item !== "undefined" && 
 	    	item !== null && 
 	    	typeof item !== 'string' && 
@@ -108,14 +108,11 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 		defStr = defs[item];
 		firstLn = (defStr.slice(0, wrapSettings.width));
 		rest = (defStr.slice(wrapSettings.width, defStr.length));
-			
+		
+		//Display the definition (both title and description)
 		console.log(prettyDefName + ' - ' + firstLn);
-		console.log(wordWrap(rest, {indent: wrapSettings.indent + "   ", width: wrapSettings.width}));
-				
-//		//Indent and display a dash if this is a taskrunner
-//		if (dep.length) {
-//			console.log(indentString + '   ');
-//		}		
+		console.log(wordWrap(rest + "\n", {indent: wrapSettings.indent + "   ",
+										   width: wrapSettings.width}));
 	}
 
 
@@ -125,13 +122,14 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 	 */ 
 	__displayMultilineTaskList = function(depStr, prettyTaskName){
 		var rest, firstLn, partialEndWord;
+
 		firstLn = depStr.toString().slice(0, wrapSettings.width);
 
 		if (firstLn.slice(-1).match(/[a-zA-Z0-9_]$/g) !== null) {  //determines if partial word at end
 			partialEndWord = (firstLn.match(/\s[^s]*$/))[0]; 		//gets partial word at end
 			firstLn = firstLn.slice(0, firstLn.length - partialEndWord.length);
-			rest = partialEndWord.slice(1) + 
-				   depStr.slice(wrapSettings.width, depStr.length) + '\n';
+			rest = partialEndWord.slice(1) + depStr.slice(wrapSettings.width,
+					depStr.length) + '\n';
 
 		} else {
 			rest = depStr.slice(wrapSettings.width, depStr.length + '\n');
@@ -176,7 +174,7 @@ module.exports = function (taskList, descriptions, flagDescriptions, excludes, s
 	 */
 	__displayFlagDescriptions = function(flagDescriptions, indentString, indent){
 
-		if (__isFlagDescriptionObj(flagDescriptions)){
+		if (__isDefObj(flagDescriptions)){
 			console.log('\n' + chalk.bold.green('Flags:') + '\n');
 
 			Object.keys(flagDescriptions).forEach(function (flag) {
@@ -203,11 +201,14 @@ return function () {
 	var tasks, indent, indentString, flags,
 		allNames = [];
 
-	descriptions = descriptions || {},
-	taskList = __rmPrivate(excludes, taskList);
-	tasks = Object.keys(taskList);
-	flags = Object.keys(flagDescriptions);
+	descriptions = descriptions || {};
+	
+	if ((typeof excludes !== "undefined") && 
+			(excludes !== null) && (Array.isArray(excludes))) {
+		taskList = 	   __rmPrivate(excludes, taskList);
+	}
 
+	tasks = Object.keys(taskList);		
 	__displayUsage(taskList);
 
 	//Show registered tasks title:
@@ -216,9 +217,13 @@ return function () {
 	tasks.forEach(function(item, index){
 		allNames.push(item);
 	});
-	flags.forEach(function(item, index){
-		allNames.push(item);
-	});
+	
+	if (__isDefObj(flagDescriptions)){
+		flags = Object.keys(flagDescriptions);
+		flags.forEach(function(item, index){
+			allNames.push(item);
+		});		
+	}
 
 	//Determine length of indent & set up an indent string
 	indent = allNames.reduce(function (winner, current) {
@@ -244,9 +249,10 @@ return function () {
 		else __displayNoDescriptionTask(prettyTaskName, dep, depStr);
 
     });
-
-	__displayFlagDescriptions(flagDescriptions, indentString, indent);
-
+	
+	if (__isDefObj(flagDescriptions)){
+		__displayFlagDescriptions(flagDescriptions, indentString, indent);		
+	}
   };
 
 
