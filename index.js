@@ -8,28 +8,40 @@ var gulp = require('gulp');
 module.exports = function (taskList, descriptions, excludes, flagDescriptions, styles) {
 
 	//private functions - local
-	var __displayUsage, 
-		__isDefObj, 
-		__displayDefWithDescription,
-		__displayMultilineTaskList,
+	var __isDefObj,
+		__rmPrivate,
+		__validateFixFlagDescriptions,
+		__formatDefName,
+		__calculateIndent,
+		__initDisplay,
+		__displayUsage, 
+		__displayFlag,
+		__displayTask,
 		__displayNoDescriptionTask,
-		__displayFlagDescriptions,
-		__rmPrivate;
-	
+		__displayFlagDescriptions;
+
+	//Formatting for the task's help text title
+	__formatDefName = function(name){
+		return chalk.bold((name + wrapSettings.indent)
+				.substr(0, wrapSettings.indent.length));
+	}
+	__formatDefName
+
 
 	//wordWrap settings
 	var wrapSettings = {
 			indent: '                             ', 
 			width: '60',
 	};
-	
+
 //	Styles to implement
 //	mainTitleColor: 
 //	minorTitleColor: 
 //	defColor: 
 //	mainTextColor: 
-	
 
+	
+/***************************** UTILITY FUNCTIONS *****************************/
 	/**
 	 * @private
 	 * Remove tasks on the 'exclude' list from the 'tasks' object, preventing
@@ -71,6 +83,78 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 
 	/**
 	 * @private
+	 * List of flags (e.g. --production) & descriptions of each
+	 * 
+	 * @param flagDescriptions {Object}
+	 * @param indentString {Object}
+	 * @param indent {Object}
+	 */
+	__validateFixFlagDescriptions = function(flagDescriptions, indentString, indent){
+		var origFlag;
+		
+		if (__isDefObj(flagDescriptions)){
+
+			Object.keys(flagDescriptions).forEach(function (flag) {
+				
+				if (flag.toString().slice(0, 2) !== "--"){
+					if (flag.toString().slice(0,1) !== "-") {
+						origFlag = flag;
+						flag = "--" + flag;
+						flagDescriptions[flag] = flagDescriptions[origFlag];
+						delete flagDescriptions[origFlag];
+					} else {
+						origFlag = flag;
+						flag = "-" + flag;
+						flagDescriptions[flag] = flagDescriptions[origFlag];
+						delete flagDescriptions[origFlag];
+					}
+				}
+			});
+			return flagDescriptions;
+		}
+		return false;
+	};
+
+
+	/**
+	 * Returns the appropriate indent size given the flags and task names 
+	 * provided (with those excluded already eliminated).
+	 */
+	__calculateIndent = function(tasks, flagDescriptions){
+		var flags, allNames = [];
+		
+		//create array of all task & flag names (for determining longest item, to get for indent size)
+		tasks.forEach(function(item, index){
+			allNames.push(item);
+		});	
+		if (__isDefObj(flagDescriptions)){
+			flags = Object.keys(flagDescriptions);
+			flags.forEach(function(item, index){
+				allNames.push(item);
+			});		
+		}
+		
+		//Determine length of indent & set up an indent string
+		return allNames.reduce(function (winner, current) {
+			return Math.max(current.length, winner);
+		}, 0);
+	}
+	
+
+	/**
+	 * Formats/styles the title of the task or flag
+	 */
+	__formatDefName = function(name){
+		return chalk.bold((name + wrapSettings.indent)
+				.substr(0, wrapSettings.indent.length));
+	}
+	/*****************************************************************************/
+
+
+
+	/***************************** DISPLAY FUNCTIONS *****************************/
+	/**
+	 * @private
 	 * Display Gulpfile usage section
 	 * @param taskList {Object}
 	 */
@@ -78,7 +162,10 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 		var isDefault, isFlags, isTasks;
 		
 		//Main title
-		console.log("\n\n" + chalk.bold(chalk.underline("Gulpfile usage")));
+		console.log("\n\n" + chalk.bold("***************************************"));
+		console.log(chalk.bold("  GULP COMMANDS AVAILABLE FOR PROJECT"));
+		console.log(chalk.bold("***************************************"));
+		console.log("\n" + chalk.bold.underline("SYNOPSIS"));
 		
 		if (flagDescriptions !== "undefined" && 
 				flagDescriptions !== null) isFlags = true;
@@ -100,9 +187,13 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 
 	/**
 	 * @private
-	 * Handle display of tasks with descriptions spanning multiple lines
+	 * Handle display of tasks & flags with descriptions provided
+	 * (Still needs a bit of fixup)
+	 * 
+	 * @param item {String} Name of task or flag
+	 * @param prettyDefName {Chalk} Name of task or flag, formatted for display
 	 */
-	__displayDefWithDescription = function(item, prettyDefName, defs){
+	__displayFlag = function(item, prettyDefName, defs){
 		var defStr, firstLn, rest;
 
 		defStr = defs[item];
@@ -114,31 +205,6 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 		console.log(wordWrap(rest + "\n", {indent: wrapSettings.indent + "   ",
 										   width: wrapSettings.width}));
 	}
-
-
-	/**
-	 * @private
-	 * Handle display of help text for tasks with tasklists spanning multiple lines
-	 */ 
-	__displayMultilineTaskList = function(depStr, prettyTaskName){
-		var rest, firstLn, partialEndWord;
-
-		firstLn = depStr.toString().slice(0, wrapSettings.width);
-
-		if (firstLn.slice(-1).match(/[a-zA-Z0-9_]$/g) !== null) {  //determines if partial word at end
-			partialEndWord = (firstLn.match(/\s[^s]*$/))[0]; 		//gets partial word at end
-			firstLn = firstLn.slice(0, firstLn.length - partialEndWord.length);
-			rest = partialEndWord.slice(1) + depStr.slice(wrapSettings.width,
-					depStr.length) + '\n';
-
-		} else {
-			rest = depStr.slice(wrapSettings.width, depStr.length + '\n');
-		}
-
-		console.log(prettyTaskName + ' - ' + firstLn);
-		console.log(wordWrap(rest, wrapSettings));																	
-	}
-
 
 	/**
 	 * @private
@@ -154,7 +220,7 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 
 			//Multiline tasklist
 			} else {
-				__displayMultilineTaskList(depStr, prettyTaskName);
+				__displayTask(depStr, prettyTaskName);
 			}
 
 		//Output task name only, if no description or task list
@@ -166,93 +232,110 @@ module.exports = function (taskList, descriptions, excludes, flagDescriptions, s
 
 	/**
 	 * @private
-	 * List of flags (e.g. --production) & descriptions of each
-	 * 
-	 * @param flagDescriptions {Object}
-	 * @param indentString {Object}
-	 * @param indent {Object}
-	 */
-	__displayFlagDescriptions = function(flagDescriptions, indentString, indent){
+	 * Handle display of help text for tasks with tasklists spanning multiple lines
+	 */ 
+	__displayTask = function(depStr, prettyTaskName){
+		var rest, firstLn, partialEndWord;
+		
+		//Display single-line definitions
+		if (depStr.length < wrapSettings.width) {
+			console.log(prettyTaskName + ' - ' + depStr);
 
-		if (__isDefObj(flagDescriptions)){
-			console.log('\n' + chalk.bold.green('Flags:') + '\n');
-
-			Object.keys(flagDescriptions).forEach(function (flag) {
-				var prettyFlagName = chalk.bold((flag + indentString).substr(0, indent));
-				__displayDefWithDescription(flag, prettyFlagName, flagDescriptions);
-//				var wrappedDescription;
-//				wrappedDescription = wordWrap(flagDescriptions[flag],
-//											  wrapSettings);
-				//actual output of flags and descriptions
-//				console.log(prettyFlagName + ' - ' + wrappedDescription + '\n');
-			});
+		//Display multiline definitions
+		} else {
+			firstLn = depStr.toString().slice(0, wrapSettings.width);
+			
+			if (firstLn.slice(-1).match(/[a-zA-Z0-9_]$/g) !== null) {  //determines if partial word at end
+				partialEndWord = (firstLn.match(/\s[^s]*$/))[0]; 		//gets partial word at end
+				firstLn = firstLn.slice(0, firstLn.length - partialEndWord.length);
+				rest = partialEndWord.slice(1) + depStr.slice(wrapSettings.width,
+						depStr.length) + '\n';
+				
+			} else {
+				rest = depStr.slice(wrapSettings.width, depStr.length) + '\n';
+			}
+			
+			console.log(prettyTaskName + ' - ' + firstLn);
+			console.log(wordWrap(rest, { indent: wrapSettings.indent + "   ", width: wrapSettings.width }));
 		}
-		return true;
+
 	}
 
 
+	/**
+	 * Kickstart the sequence of displaying all items - figure out how each
+	 * item should be displayed and what function to handle it
+	 * 
+	 * @param taskList {Array}
+	 * @param descriptions {Object}
+	 * @param flags {Object}
+	 */
+	__initDisplay = function(taskList, descriptions, flags, flagDescriptions){
+		var prettyDefName, dep, depStr;
+
+		//Show main synopsis of command structure
+		__displayUsage(taskList);
+		
+		//Show registered tasks title:
+		console.log('\n' + chalk.bold.underline('\nREGISTERED TASKS'));
+		
+		//Display the taskname and its description
+		Object.keys(taskList).forEach(function (task) {
+			prettyDefName = __formatDefName(task);
+
+			//tasks with descriptions: Output of name & task description to log
+			if (task in descriptions) {
+				__displayTask(descriptions[task], prettyDefName);
+
+			//tasks with no descriptions
+			} else {
+				dep = taskList[task].dep;
+				depStr = 'Runs ' + dep.join(', ');
+				__displayNoDescriptionTask(prettyDefName, dep, depStr);				
+			}
+			
+		});
+
+		//Display options (aka flags) title
+		console.log('\n' + chalk.bold.underline('\nOPTIONS'));
+
+		//Display the flags and their descriptions
+		Object.keys(flagDescriptions).forEach(function(flag) {
+			prettyDefName = __formatDefName(flag);
+	
+			__displayFlag(flag, prettyDefName, flagDescriptions);
+			return true;
+		});
+	}
+	/*****************************************************************************/
+	
+	
+	
 
 
+/***************************************** EXPORT *****************************************/
 /**
  * @public
  * exported gulp help object
  */
 return function () {
-	var tasks, indent, indentString, flags,
-		allNames = [];
-
+	var tasks, indentLength, flags;
 	descriptions = descriptions || {};
-	
+
+	//Remove excluded tasks from the task list
 	if ((typeof excludes !== "undefined") && 
 			(excludes !== null) && (Array.isArray(excludes))) {
-		taskList = 	   __rmPrivate(excludes, taskList);
+		taskList = __rmPrivate(excludes, taskList);
 	}
 
-	tasks = Object.keys(taskList);		
-	__displayUsage(taskList);
-
-	//Show registered tasks title:
-	console.log('\n' + chalk.bold.yellow('Registered tasks:') + '\n');
+	//prefixes flag names with '--' (if -- not present already)
+	flagDescriptions = __validateFixFlagDescriptions(flagDescriptions);
 	
-	tasks.forEach(function(item, index){
-		allNames.push(item);
-	});
+	indentLength = __calculateIndent(Object.keys(taskList), flagDescriptions);
+	wrapSettings.indent = (new Array(indentLength+1)).join(' ');
+
+	__initDisplay(taskList, descriptions, flags, flagDescriptions);
 	
-	if (__isDefObj(flagDescriptions)){
-		flags = Object.keys(flagDescriptions);
-		flags.forEach(function(item, index){
-			allNames.push(item);
-		});		
-	}
-
-	//Determine length of indent & set up an indent string
-	indent = allNames.reduce(function (winner, current) {
-		return Math.max(current.length, winner);
-	}, 0);
-	indentString = (new Array(indent+1)).join(' ');
-	wrapSettings.indent = indentString;
-
-	//Display the taskname and its description
-	Object.keys(taskList).forEach(function (task) {
-		var prettyTaskName, dep, depStr;
-
-		//Formatting for the task's help text
-		prettyTaskName = chalk.bold((task + wrapSettings.indent).substr(0, indent));
-		dep = taskList[task].dep;
-
-		depStr = 'Runs ' + dep.join(', ');
-
-		//tasks with descriptions: Output of name & task description to log
-		if (task in descriptions) __displayDefWithDescription (task, prettyTaskName, descriptions);
-
-		//tasks with no descriptions
-		else __displayNoDescriptionTask(prettyTaskName, dep, depStr);
-
-    });
-	
-	if (__isDefObj(flagDescriptions)){
-		__displayFlagDescriptions(flagDescriptions, indentString, indent);		
-	}
   };
 
 
