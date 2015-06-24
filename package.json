@@ -1,6 +1,6 @@
 {
   "name": "gulp-display-help",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": " Output beautiful custom help text for your gulp tasks and parameters ",
   "main": "index.js",
   "scripts": {
