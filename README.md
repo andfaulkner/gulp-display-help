@@ -1,20 +1,26 @@
 # gulp-display-help
-Output beautiful custom help text for your gulp tasks and parameters
+- Output beautiful custom help text for your gulp tasks and parameters.
 
-Display help text for your project's gulpfile.
+- Lets you make help text specific to your project's gulpfile - for both tasks and environment flags - which can then be accessed via the command line (e.g. 'gulp help').
 
-Allows display of help text for both tasks and environment flags.
+- Automatically generates and displays list of tasks. Tasks can be excluded if not wanted on the help list ('private'/'internal' tasks). Descriptions added to each task via the plugin.
 
+- "Usage" information displayed at the top.
 
-
-Usage
-
-gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])
-- gulp.tasks must always be the first parameter
-- descriptions is an object
+- Wraps and indents the help text, linux 'man' style.
 
 
-Example
+
+##Usage
+
+__gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])__
+- gulp.tasks must always be the first parameter.
+- descriptions {Object} format::: { "taskname": "taskDescription", "taskName": "taskDescription"}
+- excludes {Array} format::: ["taskToExcludeFromHelp1", "taskToExcludeFromHelp2"]
+- flagDescriptions {Object} format: {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2" }
+
+
+###Example
 
     var require('gulp-display-help');
 
@@ -38,12 +44,11 @@ Example
       //exclude these tasks
       }, [_copy-images', '__watch', '__copy-libs', 'compile-templates'],  {
 
-      //gulp flags/parameters
-      "--production": 'production-ready compile: same as default with a few' + 
-                      ' changes: 1) 'comments, calls to js loggers, &' + 
-                      ' dev-only html blocks rm; 4) production-only blocks' + 
-                      ' of html uncommented; 5) css, js, & html minified; ' +
-                      '  & 6) Static resources compressed.',
+      //flags
+      "--production": 'full production-ready compile: same as default with a few changes: 1) ' +
+                'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +
+                'removed; 4) production-only blocks of html uncommented; 5) *TODO* css, js, &' +
+                'html minified; & 6) Static resources compressed.',
 
       '--once': 'runs the compile only once, without watching for subsequent changes'
 
@@ -51,4 +56,5 @@ Example
     
 
 Features automatic wrapping, indenting, and adjustment of definitions.
+
 
