@@ -38,11 +38,12 @@ Example
       //exclude these tasks
       }, [_copy-images', '__watch', '__copy-libs', 'compile-templates'],  {
 
-      //flags
-      "--production": 'full production-ready compile: same as default with a few changes: 1) ' +
-      			'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +
-      			'removed; 4) production-only blocks of html uncommented; 5) *TODO* css, js, &' +
-      			'html minified; & 6) Static resources compressed.',
+      //gulp flags/parameters
+      "--production": 'production-ready compile: same as default with a few' + 
+                      ' changes: 1) 'comments, calls to js loggers, &' + 
+                      ' dev-only html blocks rm; 4) production-only blocks' + 
+                      ' of html uncommented; 5) css, js, & html minified; ' +
+                      '  & 6) Static resources compressed.',
 
       '--once': 'runs the compile only once, without watching for subsequent changes'
 

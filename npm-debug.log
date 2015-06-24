@@ -1,157 +1,123 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'install', '-g', 'pakmanager' ]
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'publish',
+1 verbose cli   './',
+1 verbose cli   '--tag',
+1 verbose cli   'beta' ]
 2 info using npm@1.4.28
 3 info using node@v0.10.38
 4 verbose node symlink /usr/bin/node
-5 verbose cache add [ 'pakmanager', null ]
-6 verbose cache add name=undefined spec="pakmanager" args=["pakmanager",null]
-7 verbose parsed url { protocol: null,
-7 verbose parsed url   slashes: null,
-7 verbose parsed url   auth: null,
-7 verbose parsed url   host: null,
-7 verbose parsed url   port: null,
-7 verbose parsed url   hostname: null,
-7 verbose parsed url   hash: null,
-7 verbose parsed url   search: null,
-7 verbose parsed url   query: null,
-7 verbose parsed url   pathname: 'pakmanager',
-7 verbose parsed url   path: 'pakmanager',
-7 verbose parsed url   href: 'pakmanager' }
-8 silly lockFile ab50e5fc-pakmanager pakmanager
-9 verbose lock pakmanager /home/andfaulkner/.npm/ab50e5fc-pakmanager.lock
-10 silly lockFile ab50e5fc-pakmanager pakmanager
-11 silly lockFile ab50e5fc-pakmanager pakmanager
-12 verbose addNamed [ 'pakmanager', '' ]
-13 verbose addNamed [ null, '*' ]
-14 silly lockFile 15818177-pakmanager pakmanager@
-15 verbose lock pakmanager@ /home/andfaulkner/.npm/15818177-pakmanager.lock
-16 silly addNameRange { name: 'pakmanager', range: '*', hasData: false }
-17 verbose request where is /pakmanager
-18 verbose request registry https://registry.npmjs.org/
-19 verbose request id 1d07276728b7f2de
-20 verbose url raw /pakmanager
-21 verbose url resolving [ 'https://registry.npmjs.org/', './pakmanager' ]
-22 verbose url resolved https://registry.npmjs.org/pakmanager
-23 verbose request where is https://registry.npmjs.org/pakmanager
-24 info trying registry request attempt 1 at 02:53:02
-25 http GET https://registry.npmjs.org/pakmanager
-26 http 200 https://registry.npmjs.org/pakmanager
-27 silly registry.get cb [ 200,
-27 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
-27 silly registry.get     etag: '"6FONFS7RA6EPQFFFUONOT3YZ2"',
-27 silly registry.get     'content-type': 'application/json',
-27 silly registry.get     'cache-control': 'max-age=60',
-27 silly registry.get     'content-length': '34236',
-27 silly registry.get     'accept-ranges': 'bytes',
-27 silly registry.get     date: 'Mon, 22 Jun 2015 06:52:59 GMT',
-27 silly registry.get     via: '1.1 varnish',
-27 silly registry.get     age: '0',
-27 silly registry.get     connection: 'keep-alive',
-27 silly registry.get     'x-served-by': 'cache-dfw1827-DFW',
-27 silly registry.get     'x-cache': 'MISS',
-27 silly registry.get     'x-cache-hits': '0',
-27 silly registry.get     'x-timer': 'S1434955978.870896,VS0,VE337',
-27 silly registry.get     vary: 'Accept' } ]
-28 silly addNameRange number 2 { name: 'pakmanager', range: '*', hasData: true }
-29 silly addNameRange versions [ 'pakmanager',
-29 silly addNameRange   [ '0.8.1',
-29 silly addNameRange     '0.8.4',
-29 silly addNameRange     '0.8.5',
-29 silly addNameRange     '0.8.6',
-29 silly addNameRange     '0.8.7',
-29 silly addNameRange     '0.8.8',
-29 silly addNameRange     '0.11.3',
-29 silly addNameRange     '0.11.4',
-29 silly addNameRange     '0.11.5',
-29 silly addNameRange     '0.11.6',
-29 silly addNameRange     '0.11.7',
-29 silly addNameRange     '0.11.8',
-29 silly addNameRange     '0.12.0',
-29 silly addNameRange     '0.12.1' ] ]
-30 verbose addNamed [ 'pakmanager', '0.12.1' ]
-31 verbose addNamed [ '0.12.1', '0.12.1' ]
-32 silly lockFile dbf044d4-pakmanager-0-12-1 pakmanager@0.12.1
-33 verbose lock pakmanager@0.12.1 /home/andfaulkner/.npm/dbf044d4-pakmanager-0-12-1.lock
-34 silly lockFile 4d33d4d8-pakmanager-pakmanager-0-12-1-tgz https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-35 verbose lock https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz /home/andfaulkner/.npm/4d33d4d8-pakmanager-pakmanager-0-12-1-tgz.lock
-36 verbose addRemoteTarball [ 'https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz',
-36 verbose addRemoteTarball   '6b0cfc746678e3041ba452ca43a84bc5a6552406' ]
-37 info retry fetch attempt 1 at 02:53:03
-38 verbose fetch to= /tmp/npm-8254-PhBLJp5J/registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-39 http GET https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-40 http 200 https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-41 silly lockFile 4d33d4d8-pakmanager-pakmanager-0-12-1-tgz https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-42 silly lockFile 4d33d4d8-pakmanager-pakmanager-0-12-1-tgz https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz
-43 silly lockFile dbf044d4-pakmanager-0-12-1 pakmanager@0.12.1
-44 silly lockFile dbf044d4-pakmanager-0-12-1 pakmanager@0.12.1
-45 silly lockFile 15818177-pakmanager pakmanager@
-46 silly lockFile 15818177-pakmanager pakmanager@
-47 silly resolved [ { author:
-47 silly resolved      { name: 'AJ ONeal',
-47 silly resolved        email: 'coolaj86@gmail.com',
-47 silly resolved        url: 'http://coolaj86.info' },
-47 silly resolved     name: 'pakmanager',
-47 silly resolved     description: 'A demo package manager using the pakman API.',
-47 silly resolved     version: '0.12.1',
-47 silly resolved     homepage: 'https://github.com/coolaj86/node-pakman',
-47 silly resolved     repository:
-47 silly resolved      { type: 'git',
-47 silly resolved        url: 'git://github.com/coolaj86/node-pakman.git' },
-47 silly resolved     main: 'lib/index',
-47 silly resolved     lib: 'lib',
-47 silly resolved     bin: { pakmanager: 'bin/pakmanager.js' },
-47 silly resolved     scripts: { test: 'pakmanager' },
-47 silly resolved     engines: { node: '>=0.4' },
-47 silly resolved     dependencies: { pakman: '>=0.11.5 <0.12.0', argparse: '>=0.1.5 <0.2.0' },
-47 silly resolved     devDependencies: {},
-47 silly resolved     readme: 'pakmanager\n===\n\nAn example (and fully functional) package manager built on the [`pakman`](http://github.com/coolaj86/node-pakman) and `npm` APIs.\n\nInstallation\n===\n\nIf you haven\'t already set your NPM author info, now you should:\n\n    npm set init.author.name "Your Name"\n    npm set init.author.email "you@example.com"\n    npm set init.author.url "http://yourblog.com"\n\n    npm adduser\n\nAnd install pakmanager:\n\n    npm install -g pakmanager\n\nUsage\n===\n\nIn short: run `pakmanager build` wherever `package.json` exists\n\nCreate your project\n\n    PROJECT=~/Code/some-project\n    mkdir -p ${PROJECT}/lib\n    cd ${PROJECT}\n    touch lib/index.js\n    npm init\n\nNOTE: Your code will be wrapped in a strict-mode closure - so don\'t use "The Bad Parts" TM such as using `this` to refer to the global object. See [jshint](http://jshint.com).\n\n    (function () { "use strict";\n      var module = { exports: {} };\n      /*** your code pasted here ***/ \n      provide(\'providename\', module);\n    }());\n\nMark as private if need be by editing `package.json` and adding `"private": true,`\n\nTest and build your module\n\n    pakmanager deps\n    pakmanager build\n    # edit pakmanaged-test.js\n    # open pakmanaged.html to see about any errors\n\nAnd you might want to publish your module\n\n    npm publish ./\n\n\nCLI / API\n===\n\n    pakmanager deps       # list all dependencies\n    pakmanager build      # builds package.json.browserDependencies and package.json.main\n\n    rm -rf pakmanaged.js ./node_modules # clean old builds\n\nInternal API\n===\n\n    #create(config)\n    #init(cb, config)\n\n    config.packageRoot\n\nTODO\n===\n\nlinting\n\njshint code and report errors\n\nAdd to API\n\n    pakmanager init       # creates / updates package.json\n    pakmanager install    # installs package.json.browserDependencies into ./node_modules\n    pakmanager clean      # rm -rf ./node_modules\n    pakmanager rebuild    # clean, build\n    pakmanager add        # add module@ver to package.json.browserDependencies\n    pakmanager set        # set module@ver in package.json.browserDependencies\n',
-47 silly resolved     readmeFilename: 'README.md',
-47 silly resolved     _id: 'pakmanager@0.12.1',
-47 silly resolved     dist:
-47 silly resolved      { shasum: '6b0cfc746678e3041ba452ca43a84bc5a6552406',
-47 silly resolved        tarball: 'http://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz' },
-47 silly resolved     _from: 'pakmanager@',
-47 silly resolved     _npmVersion: '1.2.15',
-47 silly resolved     _npmUser: { name: 'coolaj86', email: 'coolaj86@gmail.com' },
-47 silly resolved     maintainers: [ [Object] ],
-47 silly resolved     directories: {},
-47 silly resolved     _shasum: '6b0cfc746678e3041ba452ca43a84bc5a6552406',
-47 silly resolved     _resolved: 'https://registry.npmjs.org/pakmanager/-/pakmanager-0.12.1.tgz' } ]
-48 info install pakmanager@0.12.1 into /usr/lib
-49 info installOne pakmanager@0.12.1
-50 verbose lib/node_modules/pakmanager unbuild
-51 verbose tar unpack /home/andfaulkner/.npm/pakmanager/0.12.1/package.tgz
-52 silly lockFile bc43417d--usr-lib-node-modules-pakmanager tar:///usr/lib/node_modules/pakmanager
-53 verbose lock tar:///usr/lib/node_modules/pakmanager /home/andfaulkner/.npm/bc43417d--usr-lib-node-modules-pakmanager.lock
-54 silly lockFile ef2eae80-pm-pakmanager-0-12-1-package-tgz tar:///home/andfaulkner/.npm/pakmanager/0.12.1/package.tgz
-55 verbose lock tar:///home/andfaulkner/.npm/pakmanager/0.12.1/package.tgz /home/andfaulkner/.npm/ef2eae80-pm-pakmanager-0-12-1-package-tgz.lock
-56 silly gunzTarPerm modes [ '755', '644' ]
-57 error Error: EACCES, mkdir '/usr/lib/node_modules/pakmanager'
-57 error  { [Error: EACCES, mkdir '/usr/lib/node_modules/pakmanager']
-57 error   errno: 3,
-57 error   code: 'EACCES',
-57 error   path: '/usr/lib/node_modules/pakmanager',
-57 error   fstream_type: 'Directory',
-57 error   fstream_path: '/usr/lib/node_modules/pakmanager',
-57 error   fstream_class: 'DirWriter',
-57 error   fstream_stack:
-57 error    [ '/usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23',
-57 error      '/usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53',
-57 error      'Object.oncomplete (fs.js:108:15)' ] }
-58 error Please try running this command again as root/Administrator.
-59 error System Linux 3.13.0-37-generic
-60 error command "/usr/bin/node" "/usr/bin/npm" "install" "-g" "pakmanager"
-61 error cwd /home/andfaulkner/Projects/cordova/gulp-display-help
-62 error node -v v0.10.38
-63 error npm -v 1.4.28
-64 error path /usr/lib/node_modules/pakmanager
-65 error fstream_path /usr/lib/node_modules/pakmanager
-66 error fstream_type Directory
-67 error fstream_class DirWriter
-68 error code EACCES
-69 error errno 3
-70 error stack Error: EACCES, mkdir '/usr/lib/node_modules/pakmanager'
-71 error fstream_stack /usr/lib/node_modules/npm/node_modules/fstream/lib/dir-writer.js:36:23
-71 error fstream_stack /usr/lib/node_modules/npm/node_modules/mkdirp/index.js:46:53
-71 error fstream_stack Object.oncomplete (fs.js:108:15)
-72 verbose exit [ 3, true ]
+5 verbose publish [ './' ]
+6 verbose cache add [ './', null ]
+7 verbose cache add name=undefined spec="./" args=["./",null]
+8 verbose parsed url { protocol: null,
+8 verbose parsed url   slashes: null,
+8 verbose parsed url   auth: null,
+8 verbose parsed url   host: null,
+8 verbose parsed url   port: null,
+8 verbose parsed url   hostname: null,
+8 verbose parsed url   hash: null,
+8 verbose parsed url   search: null,
+8 verbose parsed url   query: null,
+8 verbose parsed url   pathname: './',
+8 verbose parsed url   path: './',
+8 verbose parsed url   href: './' }
+9 silly lockFile 0ee6c175- ./
+10 verbose lock ./ /home/andfaulkner/.npm/0ee6c175-.lock
+11 verbose tar pack [ '/home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz',
+11 verbose tar pack   './' ]
+12 verbose tarball /home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz
+13 verbose folder ./
+14 info prepublish gulp-display-help@0.0.2
+15 silly lockFile 04cb2bca-tar tar://./
+16 verbose lock tar://./ /home/andfaulkner/.npm/04cb2bca-tar.lock
+17 silly lockFile e26b41df-p-display-help-0-0-2-package-tgz tar:///home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz
+18 verbose lock tar:///home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz /home/andfaulkner/.npm/e26b41df-p-display-help-0-0-2-package-tgz.lock
+19 silly lockFile 04cb2bca-tar tar://./
+20 silly lockFile 04cb2bca-tar tar://./
+21 silly lockFile e26b41df-p-display-help-0-0-2-package-tgz tar:///home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz
+22 silly lockFile e26b41df-p-display-help-0-0-2-package-tgz tar:///home/andfaulkner/.npm/gulp-display-help/0.0.2/package.tgz
+23 silly lockFile e8569c44--gulp-display-help-0-0-2-package /home/andfaulkner/.npm/gulp-display-help/0.0.2/package
+24 verbose lock /home/andfaulkner/.npm/gulp-display-help/0.0.2/package /home/andfaulkner/.npm/e8569c44--gulp-display-help-0-0-2-package.lock
+25 silly lockFile e8569c44--gulp-display-help-0-0-2-package /home/andfaulkner/.npm/gulp-display-help/0.0.2/package
+26 silly lockFile e8569c44--gulp-display-help-0-0-2-package /home/andfaulkner/.npm/gulp-display-help/0.0.2/package
+27 silly lockFile 0ee6c175- ./
+28 silly lockFile 0ee6c175- ./
+29 silly publish { name: 'gulp-display-help',
+29 silly publish   version: '0.0.2',
+29 silly publish   description: ' Output beautiful custom help text for your gulp tasks and parameters ',
+29 silly publish   main: 'index.js',
+29 silly publish   scripts: { test: 'gulp help' },
+29 silly publish   repository:
+29 silly publish    { type: 'git',
+29 silly publish      url: 'git+https://github.com/andfaulkner/gulp-display-help.git' },
+29 silly publish   keywords:
+29 silly publish    [ 'gulp',
+29 silly publish      'help',
+29 silly publish      'manual',
+29 silly publish      'man',
+29 silly publish      'console',
+29 silly publish      'log',
+29 silly publish      'helpfile',
+29 silly publish      'faq',
+29 silly publish      'gulpfile',
+29 silly publish      'summary',
+29 silly publish      'description' ],
+29 silly publish   author: { name: 'Andrew Faulkner' },
+29 silly publish   license: 'Apache 2.0',
+29 silly publish   bugs: { url: 'https://github.com/andfaulkner/gulp-display-help/issues' },
+29 silly publish   homepage: 'https://github.com/andfaulkner/gulp-display-help#readme',
+29 silly publish   dependencies: { chalk: '^0.4.0', gulp: '^3.9.0', 'word-wrap': '^1.0.3' },
+29 silly publish   devDependencies: { gulp: '^3.7.0' },
+29 silly publish   _id: 'gulp-display-help@0.0.2',
+29 silly publish   _from: './',
+29 silly publish   _npmVersion: '2.8.4',
+29 silly publish   _npmUser: { name: 'andfaulkner', email: 'andfaulkner@gmail.com' },
+29 silly publish   maintainers: [ { name: 'Andrew Faulkner', email: 'andfaulkner@gmail.com' } ],
+29 silly publish   readme: '# gulp-display-help\nOutput beautiful custom help text for your gulp tasks and parameters\n\nDisplay help text for your project\'s gulpfile.\n\nAllows display of help text for both tasks and environment flags.\n\n\n\nUsage\n\ngulp.task(\'help\', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])\n- gulp.tasks must always be the first parameter\n- descriptions is an object\n\n\nExample\n\n    var require(\'gulp-display-help\');\n\n    gulp.task(\'help\', gulp.tasks, displayHelp({\n    \n      //tasks\n      default: \'1) a) compiles app: converts NodeJS --> JS & concats it\' +\n               \'all libs into a single js file; b) compiles SCSS --> CSS;\' +\n               \' c)compiles html templates; d) grabs static resources; & \' +\n               \'e) copies everything used into build folder.\\n2)backs \' +\n               \'project up into separate local folder. \\n3) watches src \' +\n               \'folder for changes, & auto-recompiles when a change occurs\',\n                         \n\n      \'test\': \'run jasmine tests, launch & test in a js runtime env with karma;\',\n\n      \'backup\': \'Backs up src files into a local folder\',\n\n      \'help\': \'displays this help text\'\n    \n      //exclude these tasks\n      }, [_copy-images\', \'__watch\', \'__copy-libs\', \'compile-templates\'],  {\n\n      //gulp flags/parameters\n      "--production": \'production-ready compile: same as default with a few\' + \n                      \' changes: 1) \'comments, calls to js loggers, &\' + \n                      \' dev-only html blocks rm; 4) production-only blocks\' + \n                      \' of html uncommented; 5) css, js, & html minified; \' +\n                      \'  & 6) Static resources compressed.\',\n\n      \'--once\': \'runs the compile only once, without watching for subsequent changes\'\n\n      }));\n    \n\nFeatures automatic wrapping, indenting, and adjustment of definitions.\n\n',
+29 silly publish   readmeFilename: 'README.md',
+29 silly publish   gitHead: '80bef6e6aa3ffe91e42d7749cc1768bc26a84a87',
+29 silly publish   _shasum: '90740c4acb85226571fe8f27ba9a43253a8e6208' }
+30 verbose request where is /gulp-display-help
+31 verbose request registry https://registry.npmjs.org/
+32 verbose request id d203074988cec6f4
+33 verbose url raw /gulp-display-help
+34 verbose url resolving [ 'https://registry.npmjs.org/', './gulp-display-help' ]
+35 verbose url resolved https://registry.npmjs.org/gulp-display-help
+36 verbose request where is https://registry.npmjs.org/gulp-display-help
+37 info trying registry request attempt 1 at 03:17:36
+38 http PUT https://registry.npmjs.org/gulp-display-help
+39 http 403 https://registry.npmjs.org/gulp-display-help
+40 verbose headers { 'content-type': 'application/json',
+40 verbose headers   'cache-control': 'max-age=60',
+40 verbose headers   'content-length': '95',
+40 verbose headers   'accept-ranges': 'bytes',
+40 verbose headers   date: 'Mon, 22 Jun 2015 07:17:37 GMT',
+40 verbose headers   via: '1.1 varnish',
+40 verbose headers   connection: 'keep-alive',
+40 verbose headers   'x-served-by': 'cache-ord1721-ORD',
+40 verbose headers   'x-cache': 'MISS',
+40 verbose headers   'x-cache-hits': '0',
+40 verbose headers   'x-timer': 'S1434957452.499012,VS0,VE5284' }
+41 error publish Failed PUT 403
+42 error Error: "You cannot publish over the previously published version 0.0.2." : gulp-display-help
+42 error     at RegClient.<anonymous> (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:308:14)
+42 error     at Request._callback (/usr/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:246:65)
+42 error     at Request.self.callback (/usr/lib/node_modules/npm/node_modules/request/request.js:236:22)
+42 error     at Request.emit (events.js:98:17)
+42 error     at Request.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1142:14)
+42 error     at Request.emit (events.js:117:20)
+42 error     at IncomingMessage.<anonymous> (/usr/lib/node_modules/npm/node_modules/request/request.js:1096:12)
+42 error     at IncomingMessage.emit (events.js:117:20)
+42 error     at _stream_readable.js:944:16
+42 error     at process._tickCallback (node.js:448:13)
+43 error If you need help, you may report this *entire* log,
+43 error including the npm and node versions, at:
+43 error     <http://github.com/npm/npm/issues>
+44 error System Linux 3.13.0-37-generic
+45 error command "/usr/bin/node" "/usr/bin/npm" "publish" "./" "--tag" "beta"
+46 error cwd /home/andfaulkner/Projects/cordova/gulp-display-help
+47 error node -v v0.10.38
+48 error npm -v 1.4.28
+49 verbose exit [ 1, true ]
