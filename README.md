@@ -18,9 +18,17 @@ __Installation__
 
 __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])__
 - gulp.tasks must always be the first parameter.
-- descriptions {Object} format::: { "taskname": "taskDescription", "taskName": "taskDescription"}
-- excludes {Array} format::: ["taskToExcludeFromHelp1", "taskToExcludeFromHelp2"]
-- flagDescriptions {Object} format: {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2" }
+- descriptions {Object} format: 
+
+                { "taskname": "taskDescription", "taskName": "taskDescription"}
+
+- excludes {Array} format: 
+
+                ["taskToExcludeFromHelp1", "taskToExcludeFromHelp2"]
+
+- flagDescriptions {Object} format:
+
+                {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2" }
 
 
 ### Example
