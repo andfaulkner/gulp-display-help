@@ -2,7 +2,6 @@
 
 var chalk = require('chalk');
 var wordWrap = require('word-wrap');
-var gulp = require('gulp');
 
 
 module.exports = function (taskList, descriptions, excludes, flagDescriptions, styles) {

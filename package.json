@@ -1,6 +1,6 @@
 {
   "name": "gulp-display-help",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": " Output beautiful custom help text for your gulp tasks and parameters ",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,9 @@
     "summary",
     "description"
   ],
-  "author": "Andrew Faulkner",
+  "author": {
+    "name": "Andrew Faulkner"
+  },
   "license": "Apache 2.0",
   "bugs": {
     "url": "https://github.com/andfaulkner/gulp-display-help/issues"
@@ -31,13 +33,11 @@
   "homepage": "https://github.com/andfaulkner/gulp-display-help#readme",
   "dependencies": {
     "chalk": "^0.4.0",
-    "gulp": "^3.7.0",
     "word-wrap": "^1.0.3"
   },
-  "devDependencies": {
-  },
-  "_id": "gulp-display-help@0.0.1",
-  "_from": "gulp-display-help@*",
+  "devDependencies": {},
+  "_id": "gulp-display-help@0.1.0",
+  "_from": "gulp-display-help",
   "_npmVersion": "2.8.4",
   "_npmUser": {
     "name": "andfaulkner",
@@ -48,5 +48,10 @@
       "name": "Andrew Faulkner",
       "email": "andfaulkner@gmail.com"
     }
-  ]
+  ],
+  "readme": "# gulp-display-help\n#### Output beautiful custom help text for your gulp tasks and parameters.\n\n- Lets you make help text specific to your project's gulpfile - for both tasks and environment flags - which can then be accessed via the command line (e.g. 'gulp help').\n\n- Automatically generates and displays list of tasks. Tasks can be excluded if not wanted on the help list ('private'/'internal' tasks). Descriptions added to each task via the plugin.\n\n- \"Usage\" information displayed at the top.\n\n- Wraps and indents the help text, linux 'man' style.\n\n__Installation__\n\n        npm install --save-dev gulp-display-help\n\n\n## Usage\n\n__gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])__\n- gulp.tasks must always be the first parameter.\n- descriptions {Object} format: \n\n        { \"taskname1\": \"taskDescription1\", \"taskName2\": \"taskDescription2\", \"etc\": \"etc\"}\n\n- excludes {Array} format: \n\n        [\"taskToExcludeFromHelp1\", \"taskToExcludeFromHelp2\", \"item3\", \"item4\", \"etc\"]\n\n- flagDescriptions {Object} format:\n\n        {\"gulpCliParameter1\": \"gulpCliParameter1Description\", \"gulpParam2\": \"gulpDescription2\", \"etc\": \"etc\" }\n\n\n### Example\n\n    var require('gulp-display-help');\n\n    gulp.task('help', gulp.tasks, displayHelp({\n    \n      //tasks\n      default: '1) a) compiles app: converts NodeJS --> JS & concats it' +\n               'all libs into a single js file; b) compiles SCSS --> CSS;' +\n               ' c)compiles html templates; d) grabs static resources; & ' +\n               'e) copies everything used into build folder.\\n2)backs ' +\n               'project up into separate local folder. \\n3) watches src ' +\n               'folder for changes, & auto-recompiles when a change occurs',\n                         \n\n      'test': 'run jasmine tests, launch & test in a js runtime env with karma;',\n\n      'backup': 'Backs up src files into a local folder',\n\n      'help': 'displays this help text'\n    \n      //exclude these tasks\n      }, [_copy-images', '__watch', '__copy-libs', 'compile-templates'],  {\n\n      //flags\n      \"--production\": 'full production-ready compile: same as default with a few changes: 1) ' +\n                'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +\n                'removed; 4) production-only blocks of html uncommented; 5) *TODO* css, js, &' +\n                'html minified; & 6) Static resources compressed.',\n\n      '--once': 'runs the compile only once, without watching for subsequent changes'\n\n      }));\n    \n\nFeatures automatic wrapping, indenting, and adjustment of definitions.\n\n\n",
+  "readmeFilename": "README.md",
+  "gitHead": "4ebabcfbcc8dbee65dd7463a667b9bdd9dfab4ee",
+  "_shasum": "19e299571ec512e02e251eb293702e96270c9ee1",
+  "_resolved": "file:gulp-display-help"
 }
