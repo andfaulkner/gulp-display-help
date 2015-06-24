@@ -1,5 +1,5 @@
 # gulp-display-help
-- Output beautiful custom help text for your gulp tasks and parameters.
+#### Output beautiful custom help text for your gulp tasks and parameters.
 
 - Lets you make help text specific to your project's gulpfile - for both tasks and environment flags - which can then be accessed via the command line (e.g. 'gulp help').
 
@@ -9,9 +9,12 @@
 
 - Wraps and indents the help text, linux 'man' style.
 
+__Installation__
+
+        npm install --save-dev gulp-display-help
 
 
-##Usage
+## Usage
 
 __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescriptions])__
 - gulp.tasks must always be the first parameter.
@@ -20,7 +23,7 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 - flagDescriptions {Object} format: {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2" }
 
 
-###Example
+### Example
 
     var require('gulp-display-help');
 
