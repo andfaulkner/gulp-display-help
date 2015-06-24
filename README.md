@@ -20,15 +20,15 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 - gulp.tasks must always be the first parameter.
 - descriptions {Object} format: 
 
-                { "taskname1": "taskDescription1", "taskName2": "taskDescription2", "etc": "etc"}
+        { "taskname1": "taskDescription1", "taskName2": "taskDescription2", "etc": "etc"}
 
 - excludes {Array} format: 
 
-                ["taskToExcludeFromHelp1", "taskToExcludeFromHelp2", "item3", "item4", "etc"]
+        ["taskToExcludeFromHelp1", "taskToExcludeFromHelp2", "item3", "item4", "etc"]
 
 - flagDescriptions {Object} format:
 
-                {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2", "etc": "etc" }
+        {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2", "etc": "etc" }
 
 
 ### Example
