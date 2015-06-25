@@ -68,4 +68,4 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 
 Features automatic wrapping, indenting, and adjustment of definitions.
 
-
+https://www.npmjs.com/package/gulp-display-help
