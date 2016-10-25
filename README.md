@@ -28,7 +28,7 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 
 - flagDescriptions {Object} format:
 
-    {"gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2", "etc": "etc" }
+    {"--gulpCliParameter1": "gulpCliParameter1Description", "gulpParam2": "gulpDescription2", "--etc": "etc" }
 
 
 ### Example
@@ -36,9 +36,9 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
     var displayHelp = require('gulp-display-help');
 
     gulp.task('help', gulp.tasks, displayHelp(
-      // For the below items, each key corresponds to a gulp task, and each value is the definition
-      // appearing beside it in the gulp --help output text. However, gulp tasks not defined still
-      // appear in the gulp help output (unless excluded -  see below), but without a definition.
+      // For the below items, each key corresponds to a gulp task, & each value is its
+      // definition in the gulp help output text. gulp tasks not defined stil appear in
+      // the gulp help output (unless excluded -  see below), but without a definition.
       {
         default: '1) a) compiles app: converts NodeJS --> JS & concats it' +
                  'all libs into a single js file; b) compiles SCSS --> CSS;' +
