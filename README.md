@@ -36,8 +36,10 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
     var displayHelp = require('gulp-display-help');
 
     gulp.task('help', gulp.tasks, displayHelp(
+      // For the below items, each key corresponds to a gulp task, and each value is the definition
+      // appearing beside it in the gulp --help output text. However, gulp tasks not defined still
+      // appear in the gulp help output (unless excluded -  see below), but without a definition.
       {
-        // tasks
         default: '1) a) compiles app: converts NodeJS --> JS & concats it' +
                  'all libs into a single js file; b) compiles SCSS --> CSS;' +
                  ' c)compiles html templates; d) grabs static resources; & ' +
@@ -51,7 +53,7 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 
         'help': 'displays this help text'
     
-      //exclude the below tasks from help output
+      // Exclude the below tasks from help output
       }, [ 
           _copy-images',
           '__watch',
@@ -59,7 +61,7 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
           'compile-templates'
       ],
 
-      // command-line flags
+      // Command-line flags
       {
         "--production": 'full production-ready compile: same as default with a few changes: 1) ' +
                         'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +
