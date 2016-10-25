@@ -33,43 +33,43 @@ __gulp.task('help', displayHelp(gulp.tasks [, descriptions, excludes, flagDescri
 
 ### Example
 
-  var displayHelp = require('gulp-display-help');
+    var displayHelp = require('gulp-display-help');
 
-  gulp.task('help', gulp.tasks, displayHelp(
-    {
-      // tasks
-      default: '1) a) compiles app: converts NodeJS --> JS & concats it' +
-               'all libs into a single js file; b) compiles SCSS --> CSS;' +
-               ' c)compiles html templates; d) grabs static resources; & ' +
-               'e) copies everything used into build folder.\n2)backs ' +
-               'project up into separate local folder. \n3) watches src ' +
-               'folder for changes, & auto-recompiles when a change occurs',
+    gulp.task('help', gulp.tasks, displayHelp(
+      {
+        // tasks
+        default: '1) a) compiles app: converts NodeJS --> JS & concats it' +
+                 'all libs into a single js file; b) compiles SCSS --> CSS;' +
+                 ' c)compiles html templates; d) grabs static resources; & ' +
+                 'e) copies everything used into build folder.\n2)backs ' +
+                 'project up into separate local folder. \n3) watches src ' +
+                 'folder for changes, & auto-recompiles when a change occurs',
 
-      'test': 'run jasmine tests, launch & test in a js runtime env with karma;',
+        'test': 'run jasmine tests, launch & test in a js runtime env with karma;',
 
-      'backup': 'Backs up src files into a local folder',
+        'backup': 'Backs up src files into a local folder',
 
-      'help': 'displays this help text'
+        'help': 'displays this help text'
     
-    //exclude the below tasks from help output
-    }, [ 
-        _copy-images',
-        '__watch',
-        '__copy-libs',
-        'compile-templates'
-    ],
+      //exclude the below tasks from help output
+      }, [ 
+          _copy-images',
+          '__watch',
+          '__copy-libs',
+          'compile-templates'
+      ],
 
-    // command-line flags
-    {
-      "--production": 'full production-ready compile: same as default with a few changes: 1) ' +
-                      'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +
-                      'removed; 4) production-only blocks of html uncommented; 5) *TODO* css, js, &' +
-                      'html minified; & 6) Static resources compressed.',
+      // command-line flags
+      {
+        "--production": 'full production-ready compile: same as default with a few changes: 1) ' +
+                        'comments removed; 2) calls to js loggers removed; 3) dev-only sections of html' +
+                        'removed; 4) production-only blocks of html uncommented; 5) *TODO* css, js, &' +
+                        'html minified; & 6) Static resources compressed.',
 
-      '--once': 'runs the compile only once, without watching for subsequent changes'
+        '--once': 'runs the compile only once, without watching for subsequent changes'
 
-    }
-  ));
+      }
+    ));
     
 
 Features automatic wrapping, indenting, and adjustment of definitions.
